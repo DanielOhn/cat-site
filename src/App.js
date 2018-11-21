@@ -2,76 +2,49 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  _isMounted = false;
-
   state = {
-    source: 'https://i.imgur.com/VYUdUNJ.png',
+    source: '',
     error: null,
+    loading: true,
   };
 
-  fetchCat() {
-    fetch("https://aws.random.cat/meow").then(res=>res.json()).then(
-      (result) => {
-        this.setState({
-          source: result.file
-        });
-    },
-    (error) => {
-      this.setState({
-        error
-      });
-    }
-    )
-  }
-
   componentDidMount() {
-    this._isMounted = true;
-    const { source } = this.state;
-    this.fetchCat(source);
-
+    this.fetchCat();
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
+  fetchCat = async () => {
+    try {
+      const result = await fetch("https://aws.random.cat/meow");
+      const image = result.json();
+      this.setState({ source: image.file, loading: false });
+    } catch (e) {
+      this.setState({ error: e.message, loading: false });
+    }
   }
 
   render() {
-    const { error, source } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-    return (
+    const { error, loading, source } = this.state;
+    return loading ? (
+      <p>Loading...</p>
+    ) : error ? (
+      <div>Error: {error}</div>
+    ) : (
       <div className="App">
         <div className="container">
           <div className="row">
             <div className="col-1"></div>
             <div className="col-10">
-              <Image 
-                src={source}
-                className="img-fluid"
-                alt="cat picture"
-              />
+              <img src={source} className="img-fluid" alt="cat picture" />
             </div>
             <div className="col-1"></div>
           </div>
-          <Button
-            text="Get Cat"
-            type="button"
-            className="btn btn-light"
-            onClick={() => this.fetchCat()}
-          />
+          <button type="button" className="btn btn-light" onClick={this.fetchCat}>
+            Get Cat
+          </button>
         </div>
       </div>
     );
   }
-}
-
-const Image = ({source, ...props}) => {
-  return <img src={source} {...props} />
-}
-
-const Button = ({ text ,...props}) => {
-  return <button {...props}>{text}</button>
 }
 
 
