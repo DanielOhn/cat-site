@@ -15,7 +15,7 @@ class App extends Component {
   fetchCat = async () => {
     try {
       const result = await fetch("https://aws.random.cat/meow");
-      const image = result.json();
+      const image = await result.json();
       this.setState({ source: image.file, loading: false });
     } catch (e) {
       this.setState({ error: e.message, loading: false });
@@ -34,7 +34,8 @@ class App extends Component {
           <div className="row">
             <div className="col-1"></div>
             <div className="col-10">
-              <img src={source} className="img-fluid" alt="cat picture" />
+              <h1 className="display-1">Random Cats</h1>
+              <img src={source} className="img-fluid" alt="just a normal cat" />
             </div>
             <div className="col-1"></div>
           </div>
@@ -46,6 +47,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
