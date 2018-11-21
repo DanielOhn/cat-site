@@ -1,0 +1,25 @@
+body {
+  background-color: #282c34;
+}
+
+.App {
+  text-align: center;
+  color: white;
+}
+
+img {
+  margin-top: 5%;
+}
+
+button {
+  margin-top: 20px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
