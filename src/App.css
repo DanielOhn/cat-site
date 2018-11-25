@@ -19,3 +19,7 @@ button {
     transform: rotate(360deg);
   }
 }
+
+div {
+  color: white;
+}
