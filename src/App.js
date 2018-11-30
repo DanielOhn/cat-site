@@ -60,28 +60,18 @@ class App extends Component {
             </div>
             <div className="col-1"></div>
           </div>
-          <div className="row">
-            <div className="col-4"></div>
-            <div className="col-2">
-              <Button 
-                text="Get Cat"
-                type="button"
-                className="btn btn-light"
-                onClick={this.fetchCat}
-              />
-            </div>
-            <div className="col-2">
-              <Button 
-                text="Get Dog"
-                type="button"
-                className="btn btn-light"
-                onClick={this.fetchDog}
-              />
-            </div>
-            <div className="col-4"></div>
-          </div>
-          
-          
+          <Button 
+            text="Get Cat"
+            type="button"
+            className="btn btn-light"
+            onClick={this.fetchCat}
+          />
+          <Button 
+            text="Get Dog"
+            type="button"
+            className="btn btn-light"
+            onClick={this.fetchDog}
+          />          
         </div>
       </div>
     );
@@ -89,7 +79,15 @@ class App extends Component {
 }
 
 const Button = ({ text, ...props }) => {
-  return <button {...props} >{text}</button>
+  return (
+    <div className="row">
+      <div className="col-5"></div>
+      <div className="col-2">
+       <button {...props} >{text}</button>
+      </div>
+      <div className="col-5"></div>
+    </div>
+  )
 }
   
 
